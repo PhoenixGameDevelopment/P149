@@ -24,9 +24,9 @@ function handleClick(state) {
 
 require("sdk/ui/button/action").ActionButton({
 	id: "list-tabs",
-	label: "Blank Page!",
+	label: "Highlight Search Term",
 	icon: "./icon-16.png",
-	onClick: blankpage
+	onClick: highlightsearchterm
 });
 
 function highlightsearchterm() {
