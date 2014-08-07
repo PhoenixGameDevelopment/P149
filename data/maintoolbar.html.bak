@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ 
+  </head>
+
+  <body>
+<form name = "searchinput">
+	<input type ="text" name = "maintextinput">
+
+  <input type="button" value="Blog" id="submitbtn"/>
+	<script>
+	 var btn = document.getElementById('submitbtn');
+	  btn.onclick = function(){CapacityChart();}
+	 </script>
+
+	</form>
+
+    <script type="text/javascript" src="maintoolbar.js"></script>
+  </body>
+</html>

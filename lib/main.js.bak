@@ -1,11 +1,57 @@
 
 var buttons = require('sdk/ui/button/action');
+var { Frame } = require("sdk/ui/frame");
+var { Toolbar } = require("sdk/ui/toolbar");
 var tabs = require("sdk/tabs");
+
 const { Cc, Ci, Cu } = require('chrome');
 
-function replaceAll(find, replace2, str) {
-	return str.replace(new RegExp(find, 'g'), replace2);
+var data = require("sdk/self").data;
+
+// Construct a panel, loading its content from the "text-entry.html"
+// file in the "data" directory, and loading the "get-text.js" script
+// into it.
+var text_entry = require("sdk/panel").Panel({
+  contentURL: data.url("mainpane.html"),
+  contentScriptFile: data.url("mainpane.js")
+});
+
+// Create a button
+require("sdk/ui/button/action").ActionButton({
+  id: "show-panel",
+  label: "Show Panel",
+  icon: {
+    "16": "./icon-16.png",
+    "32": "./icon-32.png",
+    "64": "./icon-64.png"
+  },
+  onClick: handleClick
+});
+
+// Show the panel when the user clicks the button.
+function handleClick(state) {
+  text_entry.show();
 }
+
+// When the panel is displayed it generated an event called
+// "show": we will listen for that event and when it happens,
+// send our own "show" event to the panel's script, so the
+// script can prepare the panel for display.
+text_entry.on("show", function() {
+  text_entry.port.emit("show");
+});
+
+// Listen for messages called "text-entered" coming from
+// the content script. The message payload is the text the user
+// entered.
+// In this implementation we'll just log the text to the console.
+text_entry.port.on("text-entered", function (text) {
+  console.log(text);
+  
+  highlightsearchterm(text);
+  
+  text_entry.hide();
+});
 
 var button = buttons.ActionButton({
 	id: "pgd-link",
@@ -15,10 +61,10 @@ var button = buttons.ActionButton({
 		"32": "./icon-32.png",
 		"64": "./icon-64.png"
 	},
-	onClick: handleClick
+	onClick: gotopgd
 });
 
-function handleClick(state) {
+function gotopgd(state) {
 	tabs.open("http://www.phoenixgamedevelopment.com/");
 }
 
@@ -29,7 +75,7 @@ require("sdk/ui/button/action").ActionButton({
 	onClick: highlightsearchterm
 });
 
-function highlightsearchterm() {
+function highlightsearchterm(searchterm) {
 
 	var tabs = require("sdk/tabs");
 
@@ -37,7 +83,7 @@ function highlightsearchterm() {
 	var regex;
 	var regex = new RegExp(str, "g");
 
-	var searchterm = "Phoenix";
+	//var searchterm = "Phoenix";
 	var contentScriptString = 'document.body.innerHTML = document.body.innerHTML.replace(new RegExp("'+searchterm+'",\'g\'),"'+searchterm+'".fontcolor("yellow"));'
 
 	tabs.activeTab.attach({
