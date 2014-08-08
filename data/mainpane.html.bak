@@ -1,18 +1,15 @@
-<!DOCTYPE html>
 <html>
-  <head>
- 
+<head>
+    <style type="text/css" media="all">
+      textarea {
+        margin: 10px;
+      }
+      body {
+        background-color: gray;
+      }
+    </style>
   </head>
-
-  <body>
-<form name = "searchinput">
-	<input type ="text" name = "maintextinput">
-
-  <input type="button" value="Blog" id="submitbtn"/>
-
-
-	</form>
-
-    <script type="text/javascript" src="maintoolbar.js"></script>
+<body>
+    <textarea rows="1" cols="1" id="edit-box"></textarea>
   </body>
 </html>

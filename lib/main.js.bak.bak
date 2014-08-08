@@ -94,8 +94,15 @@ function highlightsearchterm(searchterm) {
 	var regex;
 	var regex = new RegExp(str, "g");
 
+
+//var contentScriptString= olddoc;
 	//var searchterm = "Phoenix";
 //	var contentScriptString = 'document.body.innerHTML = document.body.innerHTML.replace(new RegExp("'+searchterm+'",\'g\'),"'+searchterm+'".fontcolor("yellow"));'
+
+	//var contentScriptString = 'document.body.innerHTML = '+olddoc+'.replace(new RegExp("'+searchterm+'",\'g\'),"'+searchterm+'".fontcolor("yellow"));'
+
+	//var contentScriptString = 'document.body.innerHTML = '+olddoc+');';
+
 
 var worker =	tabs.activeTab.attach({
 		//contentScript: contentScriptString
