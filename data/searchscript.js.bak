@@ -44,7 +44,7 @@ for(i = 0; i < searchstring.length;i++){
 
 function evalstrings(searchterm,docstring){
 	console.log("EVAL: " + searchterm + " " + docstring);
-	if(searchterm == docstring)
+	if(docstring.indexOf(searchterm)>-1)
 	return true;
 	else 
 		return false;
