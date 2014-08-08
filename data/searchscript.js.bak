@@ -1,19 +1,37 @@
-//document.body.innerHTML = '+olddoc+'.replace(new RegExp("'+searchterm+'",\'g\'),"'+searchterm+'".fontcolor("yellow"));
-//var olddoc = document.body.innerHTML;
-//searchterm = "Phoenix";
+//var olddoc = "";
 
-//document.body.innerHTML = '+olddoc+'.replace(new RegExp("'+searchterm+'",\'g\'),"'+searchterm+'".fontcolor("yellow"));
+//var test = 0;
 
-//document.body.innerHTML = olddoc;
-
-self.port.on("setvars", function(searchterm) {
+self.port.on("resetdoc", function() {
   // Handle the message
-  console.log("searchterm" + searchterm);
+ // olddoc = document.body.innerHTML;
+ // document.body.innerHTML = olddoc;
+  //console.log(olddoc);
+
+});
+
+self.port.on("search", function(olddoc,searchterm) {
+  // Handle the message
+  
+  if(olddoc != ""){ //olddoc has been set
+  document.body.innerHTML = olddoc; //reset page to unmodified version
+  console.log("reset page...");
+}
+  else{
+  olddoc = document.body.innerHTML; //store original version of page
+  console.log("set page...");
+  
+  self.port.emit("sendolddoc",olddoc);
+  
+}
+
+//console.log(test);
+//test = 1;
+  //console.log("searchterm: " + searchterm + olddoc);
   
  // document.body.innerHTML = olddoc;//.replace(new RegExp(searchterm,'g'),searchterm.fontcolor("yellow"));
-  
-  olddoc = document.body.innerHTML;
+ // document.body.innerHTML = olddoc;
   
   document.body.innerHTML = document.body.innerHTML.replace(new RegExp(searchterm,'g'),searchterm.fontcolor("yellow"));
-  
+
 });
