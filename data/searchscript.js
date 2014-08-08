@@ -44,14 +44,29 @@ for(i = 0; i < searchstring.length;i++){
 
 function evalstrings(searchterm,docstring){
 	console.log("EVAL: " + searchterm + " " + docstring);
+
+	var hits = 0;
+//console.log(searchterm.length);
+	for(j = 0; j < searchterm.length;j++){
+
+		//search within docstring: (ignore order and multiple hits for now)
+		if(docstring.indexOf(searchterm.charAt(j))>-1)
+		hits++;
+
+	}
+
+	console.log("HITS: " + hits + " " + searchterm.length);
+
+	//Assume that if hits is over 70% of the length of search term, this is a match:
+	var hitpercent = 70;
 	
-	if(docstring.indexOf(searchterm)>-1)
+	var evalhit = (searchterm.length/100)*hitpercent;
+	if(hits >= evalhit)
 	return true;
-	else 
+	else
 		return false;
-		
-	
-}
+
+	}
 
 function strip(html)
 {
