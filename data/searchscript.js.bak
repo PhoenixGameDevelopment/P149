@@ -57,8 +57,8 @@ function evalstrings(searchterm,docstring){
 
 	console.log("HITS: " + hits + " " + searchterm.length);
 
-	//Assume that if hits is over 60% of the length of search term, this is a match:
-	var hitpercent = 60;
+	//Assume that if hits is over 70% of the length of search term, this is a match:
+	var hitpercent = 70;
 	
 	var evalhit = (searchterm.length/100)*hitpercent;
 	if(hits >= evalhit)

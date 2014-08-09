@@ -45,6 +45,9 @@ for(i = 0; i < searchstring.length;i++){
 function evalstrings(searchterm,docstring){
 	console.log("EVAL: " + searchterm + " " + docstring);
 
+searchterm = searchterm.toLowerCase();
+docstring = docstring.toLowerCase();
+
 	var hits = 0;
 //console.log(searchterm.length);
 	for(j = 0; j < searchterm.length;j++){
