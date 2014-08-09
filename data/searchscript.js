@@ -15,11 +15,13 @@ self.port.on("search", function(olddoc,searchterm) {
 }
 
 var searchstring =   strip(document.body.innerHTML);
+console.log("DTA:" + document.body.textContent);
 
 //search for obfuscated term here:
 
 var docstring = "";
 for(i = 0; i < searchstring.length;i++){
+
 
 	
 	docstring = docstring + searchstring.charAt(i);
@@ -30,10 +32,10 @@ for(i = 0; i < searchstring.length;i++){
 	//	console.log(docstring);
 	
 	if(evalstrings(searchterm,docstring)==true){
-		console.log("Found a Match!");
+	//	console.log("Found a Match!");
 		//highlight the match:
-		  document.body.innerHTML = document.body.innerHTML.replace(new RegExp(docstring,'g'),docstring.fontcolor("yellow"));
-
+		 // document.body.innerHTML = document.body.innerHTML.replace(new RegExp(docstring,'g'),docstring.fontcolor("yellow"));
+ document.body.innerHTML = document.body.innerHTML.replace(new RegExp(docstring,'g'),docstring.fontcolor("yellow"));
 	}
 }
 
@@ -43,7 +45,7 @@ for(i = 0; i < searchstring.length;i++){
 });
 
 function evalstrings(searchterm,docstring){
-	console.log("EVAL: " + searchterm + " " + docstring);
+//	console.log("EVAL: " + searchterm + " " + docstring);
 
 searchterm = searchterm.toLowerCase();
 docstring = docstring.toLowerCase();
@@ -58,7 +60,7 @@ docstring = docstring.toLowerCase();
 
 	}
 
-	console.log("HITS: " + hits + " " + searchterm.length);
+//	console.log("HITS: " + hits + " " + searchterm.length);
 
 	//Assume that if hits is over 70% of the length of search term, this is a match:
 	var hitpercent = 70;
