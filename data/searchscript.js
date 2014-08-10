@@ -3,6 +3,8 @@ String.prototype.replaceBetween = function(start, end, what) {
 	return this.substring(0, start) + what + this.substring(end);
 };
 
+var matchesfound = 0;
+
 self.port.on("search", function(olddoc,searchterm) {
 	// Handle the message
 
@@ -58,6 +60,7 @@ self.port.on("search", function(olddoc,searchterm) {
 
 		if(evalstrings(searchterm,docstring)==true){
 			console.log("Found a Match!" + i + " " + searchterm + " " + docstring);
+			matchesfound++;
 			//highlight the match:
 
 			replaceText(docstring,docstring.fontcolor("yellow"));
@@ -68,6 +71,8 @@ self.port.on("search", function(olddoc,searchterm) {
 	}
 
 });
+
+console.log("Matches Found: " + matchesfound);
 
 function evalstrings(searchterm,docstring){
 	//	console.log("EVAL: " + searchterm + " " + docstring);
