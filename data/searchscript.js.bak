@@ -68,7 +68,7 @@ self.port.on("search", function(olddoc,searchterm) {
 
 });
 
-//console.log("Matches Found: " + matchesfound);
+console.log("Matches Found: " + matchesfound);
 
 function evalstrings(searchterm,docstring){
 	//	console.log("EVAL: " + searchterm + " " + docstring);
