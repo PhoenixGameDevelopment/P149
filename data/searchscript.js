@@ -1,11 +1,23 @@
 
 //var matchesfound = 0; TODO: add text label displaying matches found to main toolbar
+function HTMLParser(aHTMLString){
+  var html = document.implementation.createDocument("http://www.w3.org/1999/xhtml", "html", null),
+    body = document.createElementNS("http://www.w3.org/1999/xhtml", "body");
+  html.documentElement.appendChild(body);
+
+  body.appendChild(Components.classes["@mozilla.org/feed-unescapehtml;1"]
+    .getService(Components.interfaces.nsIScriptableUnescapeHTML)
+    .parseFragment(aHTMLString, false, null, body));
+
+  return body;
+}
 
 self.port.on("search", function(olddoc,searchterm) {
 	// Handle the message
 
 	if(olddoc != ""){ //olddoc has been set
-		document.body.innerHTML = olddoc; //reset page to unmodified version
+		//document.body.innerHTML = olddoc; //reset page to unmodified version
+		document.body.innerHTML = HTMLParser(olddoc);
 		//console.log("reset page...");
 	}
 	else{
