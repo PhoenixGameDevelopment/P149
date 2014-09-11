@@ -120,9 +120,9 @@ function highlightsearchterm(searchterm) {
 
 //var old2 = HTML
 
-//var {Cc, Ci} = require("chrome");
-//var parser = Cc["@mozilla.org/parserutils;1"].getService(Ci.nsIParserUtils);
-//var sanitized = parser.sanitize(old, parser.SanitizerAllowStyle);
+var {Cc, Ci} = require("chrome");
+var parser = Cc["@mozilla.org/parserutils;1"].getService(Ci.nsIParserUtils);
+var sanitized = parser.sanitize(old, parser.SanitizerAllowStyle);
 
 	worker.port.emit("search",old,searchterm);
 

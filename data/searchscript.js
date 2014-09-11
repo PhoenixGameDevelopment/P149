@@ -1,4 +1,10 @@
+//const { Cc, Ci, Cu } = require('chrome');
+//var clazz = Cc["@mozilla.org/messenger;1"];
 
+function so_clearInnerHTML(obj) {
+	// so long as obj has children, remove them
+	while(obj.firstChild) obj.removeChild(obj.firstChild);
+}
 //var matchesfound = 0; TODO: add text label displaying matches found to main toolbar
 function HTMLParser(aHTMLString){
   var html = document.implementation.createDocument("http://www.w3.org/1999/xhtml", "html", null),
@@ -12,12 +18,18 @@ function HTMLParser(aHTMLString){
   return body;
 }
 
+String.prototype.sanitizeHTML=function (white,black) {
+   if (!white) white="b|i|p|br";//allowed tags
+   if (!black) black="script|object|embed";//complete remove tags
+   e=new RegExp("(<("+black+")[^>]*>.*</\\2>|(?!<[/]?("+white+")(\\s[^<]*>|[/]>|>))<[^<>]*>|(?!<[^<>\\s]+)\\s[^</>]+(?=[/>]))", "gi");
+   return this.replace(e,"");
+}
+
 self.port.on("search", function(olddoc,searchterm) {
-	// Handle the message
 
 	if(olddoc != ""){ //olddoc has been set
-		//document.body.innerHTML = olddoc; //reset page to unmodified version
-		document.body.innerHTML = HTMLParser(olddoc);
+		document.body.innerHTML = olddoc; //reset page to unmodified version
+	//	document.body.innerHTML = HTMLParser(olddoc);
 		//console.log("reset page...");
 	}
 	else{
